@@ -1,0 +1,120 @@
+@page "/add-job"
+
+@using JobTrackerApp.Services
+@using JobTrackerApp.Models
+
+@inject JobApplicationService JobService
+@inject NavigationManager Navigation
+
+<h2>Add New Job Application</h2>
+
+<div class="form-container">
+
+    @* Blazor's form compoent*@
+    <EditForm Model="@newJob" OnValidSubmit="HandleValidSubmit">
+    
+    
+    <DataAnnotationsValidator />
+        <ValidationSummary />
+
+
+        @* 
+
+            <input> 
+                + default is text field 
+                + no `type` 
+        
+        
+        *@
+
+        <div class="form-group">
+            <label>Position</label>
+            <input class="form-control" @bind="newJob.Position" />
+        </div>
+
+        <div class="form-group">
+            <label>Company</label>
+            <input class="form-control" @bind="newJob.Company" />
+        </div>
+
+        <div class="form-group">
+            <label>Industry</label>
+            <input class="form-control" @bind="newJob.Industry" />
+        </div>
+
+        <div class="form-group">
+            <label>Role</label>
+            <input class="form-control" @bind="newJob.Role" />
+        </div>
+
+        <div class="form-group">
+            <label>Location</label>
+            <input class="form-control" @bind="newJob.Location" />
+        </div>
+
+        <div class="form-group">
+            <label>Date Posted</label>
+            <input type="date" class="form-control" @bind="newJob.DatePosted" />
+        </div>
+
+        <div class="form-group">
+            <label>Date Applied</label>
+            <input type="date" class="form-control" @bind="newJob.DateApplied" />
+        </div>
+
+        <div class="form-group">
+            <label>Connections</label>
+            <input class="form-control" @bind="newJob.Connections" />
+        </div>
+
+        <div class="form-group">
+            <label>Cover Letter</label>
+            <input type="checkbox" @bind="newJob.HasCoverLetter" />
+        </div>
+
+        <div class="form-group">
+            <label>Résumé Form</label>
+            <input type="checkbox" @bind="newJob.HasResumeForm" />
+        </div>
+
+        <div class="form-group">
+            <label>Salary Range</label>
+            <input class="form-control" @bind="newJob.SalaryRange" />
+        </div>
+
+        <div class="form-group">
+            <label>Notes</label>
+            <textarea class="form-control" @bind="newJob.Notes"></textarea>
+        </div>
+
+
+        @* drop down menu, this way we can add more in enum *@
+        <div class="form-group">
+            <label>Status</label>
+            <select class="form-control" @bind="newJob.Status">
+                @foreach (var value in Enum.GetValues<ApplicationStatus>())
+                {
+                    <option value="@value">@value</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Latest Contact Name</label>
+            <input class="form-control" @bind="newJob.LatestContactName" />
+        </div>
+
+        <button class="submit-btn" type="submit">Save</button>
+    </EditForm>
+</div>
+
+@code {
+    JobApplication newJob = new JobApplication();
+
+    private async Task HandleValidSubmit()
+    {
+        await JobService.AddAsync(newJob);
+        Navigation.NavigateTo("/jobs");
+    }
+}
+

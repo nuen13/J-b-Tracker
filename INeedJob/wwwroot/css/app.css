@@ -1,0 +1,120 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 20px;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.job-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.job-table thead {
+    background: #343a40;
+    color: white;
+}
+
+.job-table th, .job-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.job-table tr:hover {
+    background-color: #f1f3f5;
+}
+
+.add-btn,
+.edit-btn,
+.delete-btn,
+.submit-btn {
+    padding: 8px 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.add-btn {
+    background: #007bff;
+    color: white;
+}
+
+.add-btn:hover {
+    background: #0056b3;
+}
+
+.edit-btn {
+    background: #ffc107;
+    color: black;
+}
+
+.edit-btn:hover {
+    background: #e0a800;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #a71d2a;
+}
+
+.submit-btn {
+    margin-top: 20px;
+    background: #28a745;
+    color: white;
+}
+
+.submit-btn:hover {
+    background: #1e7e34;
+}
+
+.form-container {
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-control, textarea, select, input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 80px;
+}
+
+.form-group input[type="checkbox"] {
+    width: auto;
+    margin-top: 4px;
+}

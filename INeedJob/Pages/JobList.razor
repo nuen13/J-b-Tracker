@@ -1,0 +1,75 @@
+@page "/jobs"
+@using JobTrackerApp.Services
+@using JobTrackerApp.Models
+
+
+@* give page access *@
+@inject JobApplicationService JobService
+@inject NavigationManager Navigation
+
+
+
+<h2>Job Applications</h2>
+
+<button class="add-btn" @onclick="GoToAdd">Add New Job</button>
+
+@if (jobs == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+<table class="job-table">
+    <thead>
+        <tr>
+            <th>Position</th>
+            <th>Company</th>
+            <th>Status</th>
+            <th>Date Applied</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var job in jobs)
+        {
+            <tr>
+                <td>@job.Position</td>
+                <td>@job.Company</td>
+                <td>@job.Status</td>
+                <td>@(job.DateApplied?.ToShortDateString() ?? "")</td>
+
+                <td>
+                    <button class="edit-btn" @onclick="() => EditJob(job.Id)">Edit</button>
+                    <button class="delete-btn" @onclick="() => DeleteJobAsync(job.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+
+@code {
+    List<JobApplication>? jobs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        jobs = await JobService.GetAllAsync();
+    }
+
+    void GoToAdd()
+    {
+        Navigation.NavigateTo("/add-job");
+    }
+
+    void EditJob(Guid id)
+    {
+        Navigation.NavigateTo($"/edit-job/{id}");
+    }
+
+    private async Task DeleteJobAsync(Guid id)
+    {
+        await JobService.DeleteAsync(id);
+        jobs = await JobService.GetAllAsync();
+    }
+}
