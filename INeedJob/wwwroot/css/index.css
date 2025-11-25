@@ -1,0 +1,191 @@
+
+* {
+    font-family: "IBM Plex Sans", sans-serif;
+    /* font-family: font_roboto; */
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+
+
+.header{
+    /* background: red; */
+}
+
+.header .container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 0px;
+    margin: 0px 0px 30px 0px;
+    
+}
+
+
+.header .container .title {
+    color: #6874E8;
+    font-size: 70px;
+    font-weight: bold;
+}
+
+
+/* CSS - Section 2 - Search and Filter */
+.search-filter{ 
+    /* background: pink; */
+    margin-bottom: 60px;   
+}
+
+
+.search-filter .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+       
+    max-width: 100%;     
+    padding: 0px;
+    
+/*   background: red; */   
+}
+
+.search-filter .container input {
+
+    height: 50px;
+    padding: 10px 12px;
+    
+    border-radius: 15px;
+    border-color: black;
+}
+
+
+.search-filter .container input:hover {
+    border-color: #6874E8;
+}
+
+.search-filter .container .search {
+    width: 550px;
+    margin: 0px;
+}
+
+.search-filter .container .location {
+    width: 370px;
+    margin: 0px;
+}
+
+.search-filter .container .filter {
+    width: 370px;
+    margin: 0px;
+}
+
+
+.search-filter .container button{
+
+    height: 50px;
+    width: 200px;
+    margin: 0px;
+
+
+    
+    background: white;
+    color: #6874E8;
+    
+    font-size: 20px;
+    font-weight: bold;
+
+    border-radius: 15px;
+    border-color: #6874E8;
+
+    transition: all 0.2s;
+    
+}
+
+
+.search-filter .container button:hover{
+
+    background: #6874E8;
+    color: white;
+    
+    transition: all 0.2s;
+    
+}
+
+/* CSS - Section 3 - Job Lists */
+
+.job-list{
+    /* background: pink; */
+}
+
+.job-list .container {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    max-width: 100%;     
+
+
+    
+}
+
+.job-list .container .job-ctner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 150px;
+    width: 100%;
+    max-width: 100%; 
+
+    margin-bottom: 30px;
+    padding: 20px;
+
+    background: #6874E8;
+    border: 1px solid white;
+    border-radius: 30px;
+
+}
+
+
+.job-list .container .job-ctner .left-side-job{
+    display: flex;  
+    flex-direction: column;
+
+    justify-content: flex-start;
+    align-items: left;
+
+    width: 70%;
+}
+
+
+.job-list .container .job-ctner .left-side-job label{ 
+    color: white;
+}
+
+
+.job-list .container .job-ctner .left-side-job .job-pos-comp{ 
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.left-side-job .location-ctn {
+    display: flex;
+    align-items: center;    /* center the icon + text */
+    gap: 6px;               /* spacing between icon & text */
+}
+
+
+
+
+.job-list .container .job-ctner .right-side-job{
+    width: 20%;
+}
+
+.job-list .container .job-ctner .update-btn{
+    width: 5%;
+}
+
+.job-list .container .job-ctner .view-btn{
+    width: 5%;
+}

@@ -1,9 +1,119 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+@using JobTrackerApp.Services
+@using JobTrackerApp.Models
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+@* give page access *@
+@inject JobApplicationService JobService
+@inject NavigationManager Navigation
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+
+
+@* Section 1 - Header *@
+
+<header class = "header"> 
+    <div class = "container">
+        <h2 class = "title"> Job Board </h2>
+    </div>
+</header>
+
+
+@* Section 2 - search-filter *@
+<section class = "search-filter"> 
+    <div class = "container">
+ 
+            <form class = "form-search"> 
+                <input class = "search" placeholder = "Search by job title, company, keywords ... " name = "search" id = search/>
+            </form>
+ 
+
+            <form class = "form-location"> 
+                <input class = "location" placeholder = "Location " name = "location" id = location/>
+            </form>
+
+            <form class = "form-filter"> 
+                <input class = "filter" placeholder = "Filter " name = "filter" id = filter/>
+            </form>
+
+            <button class = "add-btn" @onclick = "GoToAdd"> Add Job </button>
+    </div>
+
+    <div class = "filter-tag">
+        <label>to be done later! </label>
+    </div>
+</section>
+
+@* Section 3 - Job Lists *@
+
+<section class = "job-list">
+    <div class = "container">
+        @foreach (var job in jobs)
+        {
+            <div class = "job-ctner"> 
+   
+
+                <div class = "left-side-job">
+                    <label class = "job-pos-comp"> @job.Position - @job.Company </label>
+                    <div class = location-ctn> 
+                        <i class="fa fa-map-marker-alt"></i>
+                        <label class = "job-loc"> @job.Location </label>
+                    </div>
+                    <label class = "job-loc"> @job.Role </label>
+                    <label class = "job-link"> add link here </label>
+
+                </div> 
+
+                <div class = "right-side-job">
+        
+                    <label class = "job-status">@job.Status </label>
+                    <select id = "jobStatus" name = "jobStatus"> 
+                        @foreach (var value in Enum.GetValues<ApplicationStatus>())
+                            {
+                                <option value="@value">@value</option>
+                            }
+                    </select> 
+                </div>
+
+                <button class="update-btn" @onclick= "() => UpdateJob(job.Id)">
+                    Update
+                </button>
+
+                 <button class="view-btn">
+                    View 
+                </button>
+            </div>
+        }
+    </div>
+</section>
+
+
+
+@code {
+
+    List<JobApplication>? jobs;
+
+    protected override async Task OnInitializedAsync()
+        {
+        jobs = await JobService.GetAllAsync();
+    }
+
+    void GoToAdd()
+    {
+        Navigation.NavigateTo("/add-job");
+    }
+
+    void UpdateJob(Guid id)
+    {
+        Navigation.NavigateTo($"/edit-job/{id}");
+    }
+
+    private async Task DeleteJobAsync(Guid id)
+    {
+        await JobService.DeleteAsync(id);
+        jobs = await JobService.GetAllAsync();
+    }
+}
+
+

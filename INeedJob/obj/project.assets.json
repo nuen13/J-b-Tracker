@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {
+    "net9.0": {
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -2566,36 +2566,36 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net8.0": [
+    "net9.0": [
       "Microsoft.EntityFrameworkCore.Design >= 8.0.4",
       "Microsoft.EntityFrameworkCore.Sqlite >= 8.0.4",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.4"
     ]
   },
   "packageFolders": {
-    "/Users/kien/.nuget/packages/": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Applications/MAIN/CODING-proj/Real Project /Job Tracker/J-b-Tracker/INeedJob/INeedJob.csproj",
+      "projectUniqueName": "D:\\D-Main\\Programming\\REAL-PROJS\\i need a job web app\\J-b-Tracker\\INeedJob\\INeedJob.csproj",
       "projectName": "INeedJob",
-      "projectPath": "/Applications/MAIN/CODING-proj/Real Project /Job Tracker/J-b-Tracker/INeedJob/INeedJob.csproj",
-      "packagesPath": "/Users/kien/.nuget/packages/",
-      "outputPath": "/Applications/MAIN/CODING-proj/Real Project /Job Tracker/J-b-Tracker/INeedJob/obj/",
+      "projectPath": "D:\\D-Main\\Programming\\REAL-PROJS\\i need a job web app\\J-b-Tracker\\INeedJob\\INeedJob.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "D:\\D-Main\\Programming\\REAL-PROJS\\i need a job web app\\J-b-Tracker\\INeedJob\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/kien/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net8.0"
+        "net9.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net9.0": {
+          "targetAlias": "net9.0",
           "projectReferences": {}
         }
       },
@@ -2608,11 +2608,12 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
-      "net8.0": {
-        "targetAlias": "net8.0",
+      "net9.0": {
+        "targetAlias": "net9.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -2650,7 +2651,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.414/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
