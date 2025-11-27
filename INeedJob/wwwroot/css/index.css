@@ -5,12 +5,15 @@
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
+
+    /* background: #F4FBFF; */
 }
 
 
 
 .header{
     /* background: red; */
+    background: #d7d7d7;
 }
 
 .header .container {
@@ -138,13 +141,24 @@
     width: 100%;
     max-width: 100%; 
 
-    margin-bottom: 30px;
+    /* background: #6874E8; */
+    /* background: red; */
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+    
+    margin-bottom: 10px;
     padding: 20px;
 
-    background: #6874E8;
-    border: 1px solid white;
-    border-radius: 30px;
+    transition: all 0.1s;
+}
 
+.job-list .container .job-ctner:hover{
+    height: 160px;
+    width: 101%;
+    max-width: 101%;
+
+    transition: all 0.1;
 }
 
 
@@ -160,7 +174,7 @@
 
 
 .job-list .container .job-ctner .left-side-job label{ 
-    color: white;
+    
 }
 
 
@@ -176,6 +190,12 @@
 }
 
 
+.job-list .container .job-ctner .left-side-job .job-role { 
+    font-size: 16px;
+    font-weight: 200;
+    font-style: italic;
+}
+
 
 
 .job-list .container .job-ctner .right-side-job{
@@ -188,4 +208,37 @@
 
 .job-list .container .job-ctner .view-btn{
     width: 5%;
+}
+
+/* ---- */
+.status-submitted {
+    background-color: #1C77C3; 
+}
+
+.status-accepted {
+    background-color: #70AE6E;  
+}
+
+.status-responded {
+    background-color: #7353BA;   
+}
+
+.status-negotiating {
+    background-color: #008148;  
+}
+
+.status-interviewed {
+    background-color: #EF8A17;   
+}
+
+.status-rejected {
+    background-color: #C05746;  
+}
+
+.status-withdrawn {
+    background-color: #6E7271;  
+}
+
+.status-nohope {
+    background-color: #474647;  
 }

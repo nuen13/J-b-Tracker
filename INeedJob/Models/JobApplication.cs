@@ -12,12 +12,14 @@ namespace JobTrackerApp.Models
     public enum ApplicationStatus
     {
         Submitted, 
+        NoHope, 
+        Responded,
         Accepted, 
-        Responded, 
         Interviewed, 
+        Negotiating,
         Rejected, 
         Withdrawn,
-        NoInfo, 
+        
     }
 
     public class JobApplication

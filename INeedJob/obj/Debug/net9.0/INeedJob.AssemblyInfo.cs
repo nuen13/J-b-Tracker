@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("INeedJob")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d12b7edf3300265096905ab4c9a42913ffcc75d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f3ece87bf7576e4dd214663386e930d30e72b94e")]
 [assembly: System.Reflection.AssemblyProductAttribute("INeedJob")]
 [assembly: System.Reflection.AssemblyTitleAttribute("INeedJob")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

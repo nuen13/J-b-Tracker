@@ -3,10 +3,12 @@
 @using JobTrackerApp.Services
 @using JobTrackerApp.Models
 
+@using System.Linq
 
 @* give page access *@
 @inject JobApplicationService JobService
 @inject NavigationManager Navigation
+
 
 
 
@@ -49,9 +51,9 @@
 
 <section class = "job-list">
     <div class = "container">
-        @foreach (var job in jobs)
+    @foreach (var job in jobs)
         {
-            <div class = "job-ctner"> 
+        <div class="job-ctner @(GetStatusClass(job.Status))">
    
 
                 <div class = "left-side-job">
@@ -60,21 +62,26 @@
                         <i class="fa fa-map-marker-alt"></i>
                         <label class = "job-loc"> @job.Location </label>
                     </div>
-                    <label class = "job-loc"> @job.Role </label>
-                    <label class = "job-link"> add link here </label>
+                    <label class = "job-role">Role: @job.Role </label>
+                    <label class = "job-link">Link: <a> add link here </a> </label>
 
                 </div> 
 
                 <div class = "right-side-job">
-        
-                    <label class = "job-status">@job.Status </label>
-                    <select id = "jobStatus" name = "jobStatus"> 
-                        @foreach (var value in Enum.GetValues<ApplicationStatus>())
-                            {
-                                <option value="@value">@value</option>
-                            }
-                    </select> 
+                    <select @onchange="(e) => UpdateStatusAsync(job, e.Value?.ToString())"> 
+                        @foreach (var value in Enum.GetValues<ApplicationStatus>()) { 
+                            <option value="@value" selected="@(job.Status == value)"> @value </option> 
+                        } 
+                    </select>
+
+
+
+
+                    
                 </div>
+                <button class="delete-btn" @onclick="() => DeleteJobAsync(job.Id)">
+                    Delete
+                </button>
 
                 <button class="update-btn" @onclick= "() => UpdateJob(job.Id)">
                     Update
@@ -114,6 +121,32 @@
         await JobService.DeleteAsync(id);
         jobs = await JobService.GetAllAsync();
     }
+
+
+    private async Task UpdateStatusAsync(JobApplication job, string newStatus)
+    {
+        job.Status = Enum.Parse<ApplicationStatus>(newStatus);
+
+        await JobService.UpdateAsync(job);   
+    }
+
+    private string GetStatusClass(ApplicationStatus status)
+    {
+        return status switch
+        {
+            ApplicationStatus.Submitted   => "status-submitted",
+            ApplicationStatus.Accepted    => "status-accepted",
+            ApplicationStatus.Responded   => "status-responded",
+            ApplicationStatus.Interviewed => "status-interviewed",
+            ApplicationStatus.Rejected    => "status-rejected",
+            ApplicationStatus.Withdrawn   => "status-withdrawn",
+            ApplicationStatus.NoHope    => "status-nohope",
+            ApplicationStatus.Negotiating      => "status-negotiating",
+            _ => ""
+        };
+    }
+
+
 }
 
 
