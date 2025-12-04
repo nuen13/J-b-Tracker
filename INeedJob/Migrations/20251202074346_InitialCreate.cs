@@ -29,7 +29,8 @@ namespace INeedJob.Migrations
                     SalaryRange = table.Column<string>(type: "TEXT", nullable: false),
                     Notes = table.Column<string>(type: "TEXT", nullable: false),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
-                    LatestContactName = table.Column<string>(type: "TEXT", nullable: false)
+                    LatestContactName = table.Column<string>(type: "TEXT", nullable: false),
+                    AppliedLink = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

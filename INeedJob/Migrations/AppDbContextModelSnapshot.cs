@@ -23,6 +23,10 @@ namespace INeedJob.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("AppliedLink")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Company")
                         .IsRequired()
                         .HasColumnType("TEXT");

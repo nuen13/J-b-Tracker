@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace INeedJob.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251124012402_InitialCreate")]
+    [Migration("20251202074346_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,6 +24,10 @@ namespace INeedJob.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AppliedLink")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Company")

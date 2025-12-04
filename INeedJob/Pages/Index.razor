@@ -4,6 +4,7 @@
 @using JobTrackerApp.Models
 
 @using System.Linq
+@using Microsoft.VisualBasic
 
 @* give page access *@
 @inject JobApplicationService JobService
@@ -12,141 +13,201 @@
 
 
 
+<!-- Section 1 - Header -->
+    <header class = "header container-fluid py-5 mt-5 w-75 ">
+        <div class = "d-flex justify-content-between align-items-center">
+            <div class = "title-ctn"> 
+                <h1 class = "title fw-bold text-dark">
+                    Job Board
+                </h1>
+                <p class = "sub-title fs-5 fw-lighter text-secondary">
+                    Track and manage job applications
+                </p>
+            </div>
 
-@* Section 1 - Header *@
-
-<header class = "header"> 
-    <div class = "container">
-        <h2 class = "title"> Job Board </h2>
-    </div>
-</header>
-
-
-@* Section 2 - search-filter *@
-<section class = "search-filter"> 
-    <div class = "container">
- 
-            <form class = "form-search"> 
-                <input class = "search" placeholder = "Search by job title, company, keywords ... " name = "search" id = search/>
-            </form>
- 
-
-            <form class = "form-location"> 
-                <input class = "location" placeholder = "Location " name = "location" id = location/>
-            </form>
-
-            <form class = "form-filter"> 
-                <input class = "filter" placeholder = "Filter " name = "filter" id = filter/>
-            </form>
-
-            <button class = "add-btn" @onclick = "GoToAdd"> Add Job </button>
-    </div>
-
-    <div class = "filter-tag">
-        <label>to be done later! </label>
-    </div>
-</section>
-
-@* Section 3 - Job Lists *@
-
-<section class = "job-list">
-    <div class = "container">
-    @foreach (var job in jobs)
-        {
-        <div class="job-ctner @(GetStatusClass(job.Status))">
-   
-
-                <div class = "left-side-job">
-                    <label class = "job-pos-comp"> @job.Position - @job.Company </label>
-                    <div class = location-ctn> 
-                        <i class="fa fa-map-marker-alt"></i>
-                        <label class = "job-loc"> @job.Location </label>
-                    </div>
-                    <label class = "job-role">Role: @job.Role </label>
-                    <label class = "job-link">Link: <a> add link here </a> </label>
-
-                </div> 
-
-                <div class = "right-side-job">
-                    <select @onchange="(e) => UpdateStatusAsync(job, e.Value?.ToString())"> 
-                        @foreach (var value in Enum.GetValues<ApplicationStatus>()) { 
-                            <option value="@value" selected="@(job.Status == value)"> @value </option> 
-                        } 
-                    </select>
-
-
-
-
-                    
-                </div>
-                <button class="delete-btn" @onclick="() => DeleteJobAsync(job.Id)">
-                    Delete
-                </button>
-
-                <button class="update-btn" @onclick= "() => UpdateJob(job.Id)">
-                    Update
-                </button>
-
-                 <button class="view-btn">
-                    View 
+            <div class = "add-btn">
+                <button class = "btn fs-5 px-4 fw-bold" onclick="@GoToAdd">
+                    <i class="fa fa-plus" style = "padding-right: 10px"></i>
+                    Add Application
                 </button>
             </div>
+        </div>
+    </header>
+
+    <!-- Section 2 - Filter -->
+
+    <section class = "filter-section container-fluid w-75">
+        <div class = "ctn d-flex justify-content-start">
+            <div class="dropdown">
+                <button class="filter-btn btn btn-secondary fs-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    All Applications
+
+                    <i class="fa fa-caret-down"></i>
+                </button>
+
+
+
+                <ul class="filter-dropdown dropdown-menu">
+                    <li><a class="dropdown-item fs-5 text-dark fw-normal" href="#">Action</a></li>
+                    <li><a class="dropdown-item fs-5 text-dark fw-normal" href="#">Another action</a></li>
+                    <li><a class="dropdown-item fs-5 text-dark fw-normal" href="#">Something else here</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section 3 - Job Board -->
+
+    <section class ="job-table container-fluid w-75 py-5">
+
+        @if (jobs.Count == 0){
+            <h4>No Job has been added</h4>
+            <div class = "add-btn">
+                <button class = "btn fs-5 px-4 fw-bold" >
+                    <i class="fa fa-plus" style = "padding-right: 10px"></i>
+                    Add Application
+                </button>
+            </div> 
         }
-    </div>
-</section>
+        else{
+            <div class = "job-table-ctn table-responsive rounded-4 border border-1">
+            <table class="table order-secondary align-start caption-bottom"> 
+                <thead class = "">
+                    <tr>
+                    <th class = "table-head" scope="col">Status</th>
+                    <th class = "table-head" scope="col">Position</th>
+                    <th class = "table-head" scope="col">Company</th>
+                    <th class = "table-head" scope="col">Role</th>
+                    <th class = "table-head" scope="col">Location</th>
+                    <th class = "table-head" scope="col">Date Applied</th>
+                    <th class = "table-head" scope="col">Salary Range</th>
+                    <th class = "table-head" scope="col" colspan = "3">Action</th>
+                    </tr>
+                </thead>
+                <tbody class ="table-group-divider">
+                        @foreach (var job in jobs)
+                        {
+                            <tr class="job-ctner align-middle">
+                                <td class = "" >
+                                    <div class="dropdown" >
+                                        <button class="btn status-btn @GetStatusClass(job.Status) dropdown-toggle opacity-75"
+                                                type="button" 
+                                                data-bs-toggle="dropdown">
+                                            @job.Status
+                                        </button>
+
+                                        <ul class="dropdown-menu">
+                                            @foreach (var status in Enum.GetValues<ApplicationStatus>())
+                                            {
+                                                <li class = "" >
+                                                    <a class="dropdown-item" @onclick="() => OnStatusPick(job, status.ToString())">
+                                                        @status
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    
+                                </td>
+
+                                <td class = "align-middle fw-normal text-dark p-2 big-box">@job.Position</td>
+                                <td class = "align-middle fw-normal text-dark p-2 small-box">@job.Company</td>
+                                <td class = "align-middle fw-light text-dark p-2 small-box">@job.Role</td>
+                                <td class = "align-middle fw-light text-dark p-2 medium-box">@job.Location</td>
+                                <td class = "align-middle fw-light text-secondary p-2 small-box">@job.DateApplied</td>
+                                <td class = "align-middle  fw-light text-dark p-2 small-box">@job.SalaryRange</td>
+
+                                <td class = "align-middle"> 
+                                    <button class = "link-btn">
+
+                                    </button>
+                                </td >
+                                <td class = "align-middle">
+                                    <button class="delete-btn" @onclick="() => DeleteJobAsync(job.Id)">
+                                        Delete
+                                    </button>
+                                </td>
+                                <td class = "align-middle">
+                                    <button class="edit-btn" @onclick= "() => UpdateJob(job.Id)">
+                                        edit
+                                    </button>
+                                </td>
+
+                            </tr>
+                        }
+
+                    
+                </tbody>
+            <caption>yo caption</caption>
+            </table>
+        </div>
+        }
+        
+
+    </section>
+
+
+    @code{
+        List<JobApplication>? jobs;
 
 
 
-@code {
 
-    List<JobApplication>? jobs;
-
-    protected override async Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
-        jobs = await JobService.GetAllAsync();
-    }
+            jobs = await JobService.GetAllAsync();
+        }   
 
-    void GoToAdd()
-    {
-        Navigation.NavigateTo("/add-job");
-    }
-
-    void UpdateJob(Guid id)
-    {
-        Navigation.NavigateTo($"/edit-job/{id}");
-    }
-
-    private async Task DeleteJobAsync(Guid id)
-    {
-        await JobService.DeleteAsync(id);
-        jobs = await JobService.GetAllAsync();
-    }
-
-
-    private async Task UpdateStatusAsync(JobApplication job, string newStatus)
-    {
-        job.Status = Enum.Parse<ApplicationStatus>(newStatus);
-
-        await JobService.UpdateAsync(job);   
-    }
-
-    private string GetStatusClass(ApplicationStatus status)
-    {
-        return status switch
+        void GoToAdd()
         {
-            ApplicationStatus.Submitted   => "status-submitted",
-            ApplicationStatus.Accepted    => "status-accepted",
-            ApplicationStatus.Responded   => "status-responded",
-            ApplicationStatus.Interviewed => "status-interviewed",
-            ApplicationStatus.Rejected    => "status-rejected",
-            ApplicationStatus.Withdrawn   => "status-withdrawn",
-            ApplicationStatus.NoHope    => "status-nohope",
-            ApplicationStatus.Negotiating      => "status-negotiating",
-            _ => ""
-        };
-    }
+            Navigation.NavigateTo("/add-job");
+        }
+
+        void UpdateJob(Guid id)
+        {
+            Navigation.NavigateTo($"/edit-job/{id}");
+        }
+
+        private async Task DeleteJobAsync(Guid id)
+        {
+            await JobService.DeleteAsync(id);
+            jobs = await JobService.GetAllAsync();
+        }
+
+        private string SelectedDropText = "Choose status";
+
+        private async Task OnStatusPick(JobApplication job, string newStatus)
+        {
+            // Update UI text
+            SelectedDropText = newStatus;
+
+            // Call your existing method that parses string → enum
+            await UpdateStatusAsync(job, newStatus);
+        }
+
+        private async Task UpdateStatusAsync(JobApplication job, string newStatus)
+        {
+            job.Status = Enum.Parse<ApplicationStatus>(newStatus);
+
+            await JobService.UpdateAsync(job);   
+        }
+
+        private string GetStatusClass(ApplicationStatus status)
+        {
+            return status switch
+            {
+                ApplicationStatus.Submitted   => "bg-info text-dark",
+                ApplicationStatus.Accepted    => "bg-success text-white",
+                ApplicationStatus.Responded   => "bg-primary text-white",
+                ApplicationStatus.Interviewed => "bg-warning",
+                ApplicationStatus.Rejected    => "bg-danger text-white",
+                ApplicationStatus.Withdrawn   => "bg-dark text-white",
+                ApplicationStatus.NoHope    => "bg-dark text-white",
+                ApplicationStatus.Negotiating      => "bg-warning",
+                _ => ""
+            };
+        }
 
 
 }
-
-

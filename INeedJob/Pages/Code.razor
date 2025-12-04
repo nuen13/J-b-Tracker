@@ -1,0 +1,152 @@
+@page "/alo"
+
+@using JobTrackerApp.Services
+@using JobTrackerApp.Models
+
+@using System.Linq
+
+@* give page access *@
+@inject JobApplicationService JobService
+@inject NavigationManager Navigation
+
+
+
+
+
+@* Section 1 - Header *@
+
+<header class = "header"> 
+    <div class = "container">
+        <h2 class = "title"> Job Board </h2>
+    </div>
+</header>
+
+
+@* Section 2 - search-filter *@
+<section class = "search-filter"> 
+    <div class = "container">
+ 
+            <form class = "form-search"> 
+                <input class = "search" placeholder = "Search by job title, company, keywords ... " name = "search" id = search/>
+            </form>
+ 
+
+            <form class = "form-location"> 
+                <input class = "location" placeholder = "Location " name = "location" id = location/>
+            </form>
+
+            <form class = "form-filter"> 
+                <input class = "filter" placeholder = "Filter " name = "filter" id = filter/>
+            </form>
+
+            <button class = "add-btn" @onclick = "GoToAdd"> Add Job </button>
+    </div>
+
+    <div class = "filter-tag">
+        <label>to be done later! </label>
+    </div>
+</section>
+
+@* Section 3 - Job Lists *@
+
+<section class = "job-list">
+    <div class = "container">
+    @foreach (var job in jobs)
+        {
+        <div class="job-ctner @(GetStatusClass(job.Status))">
+   
+
+                <div class = "left-side-job">
+                    <label class = "job-pos-comp"> @job.Position - @job.Company </label>
+                    <div class = location-ctn> 
+                        <i class="fa fa-map-marker-alt"></i>
+                        <label class = "job-loc"> @job.Location </label>
+                    </div>
+                    <label class = "job-role">Role: @job.Role </label>
+                    <label class = "job-link">Link: <a> add link here </a> </label>
+
+                </div> 
+
+                <div class = "right-side-job">
+                    <select @onchange="(e) => UpdateStatusAsync(job, e.Value?.ToString())"> 
+                        @foreach (var value in Enum.GetValues<ApplicationStatus>()) { 
+                            <option value="@value" selected="@(job.Status == value)"> @value </option> 
+                        } 
+                    </select>
+
+
+
+
+                    
+                </div>
+                <button class="delete-btn" @onclick="() => DeleteJobAsync(job.Id)">
+                    Delete
+                </button>
+
+                <button class="update-btn" @onclick= "() => UpdateJob(job.Id)">
+                    Update
+                </button>
+
+                 <button class="view-btn">
+                    View 
+                </button>
+            </div>
+        }
+    </div>
+</section>
+
+
+
+@code {
+
+    List<JobApplication>? jobs;
+
+    protected override async Task OnInitializedAsync()
+        {
+        jobs = await JobService.GetAllAsync();
+    }
+
+    void GoToAdd()
+    {
+        Navigation.NavigateTo("/add-job");
+    }
+
+    void UpdateJob(Guid id)
+    {
+        Navigation.NavigateTo($"/edit-job/{id}");
+    }
+
+    private async Task DeleteJobAsync(Guid id)
+    {
+        await JobService.DeleteAsync(id);
+        jobs = await JobService.GetAllAsync();
+    }
+
+
+    private async Task UpdateStatusAsync(JobApplication job, string newStatus)
+    {
+        job.Status = Enum.Parse<ApplicationStatus>(newStatus);
+
+        await JobService.UpdateAsync(job);   
+    }
+
+    private string GetStatusClass(ApplicationStatus status)
+    {
+        return status switch
+        {
+            ApplicationStatus.Submitted   => "status-submitted",
+            ApplicationStatus.Accepted    => "status-accepted",
+            ApplicationStatus.Responded   => "status-responded",
+            ApplicationStatus.Interviewed => "status-interviewed",
+            ApplicationStatus.Rejected    => "status-rejected",
+            ApplicationStatus.Withdrawn   => "status-withdrawn",
+            ApplicationStatus.NoHope    => "status-nohope",
+            ApplicationStatus.Negotiating      => "status-negotiating",
+            _ => ""
+        };
+    }
+
+
+}
+
+

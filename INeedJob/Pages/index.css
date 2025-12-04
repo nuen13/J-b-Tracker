@@ -105,88 +105,43 @@
 }
 
 .job-table .job-table-ctn .table-head{ 
-    font-size: 1.1rem;
-    font-weight: 500;
+    font-size: 1.3rem;
+    font-weight: bold;
     color: black;
 
 
-}
-/* .job-table-ctn .job-ctner .status-btn {
-    /* width: 200px;
-    height:50px;
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-	font-weight: lighter;
-
-    cursor: pointer; */
-
-
-
-.job-table-ctn .job-ctner .status-btn {
-    width: 150px;
-    height:50px;
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-	font-weight: 400;
-
-
-    cursor: pointer;
-}
-
-.job-table-ctn .job-ctner .big-box{
-    width: 250px;
-    
-}
-
-.job-table-ctn .job-ctner .medium-box{
-    width: 200px;
-}
-
-
-.job-table-ctn .job-ctner .small-box{
-    width: 150px;
-}
-
-.job-ctner{
-    background: black;
 }
 
 
 /* ---- */
 .status-submitted {
-    background: #1C77C3; 
+    background-color: #1C77C3; 
 }
 
 .status-accepted {
-    background: #70AE6E;  
+    background-color: #70AE6E;  
 }
 
 .status-responded {
-    background: #7353BA;   
+    background-color: #7353BA;   
 }
 
 .status-negotiating {
-    background: #008148;  
+    background-color: #008148;  
 }
 
 .status-interviewed {
-    background: #EF8A17;   
+    background-color: #EF8A17;   
 }
 
 .status-rejected {
-    background: #C05746;  
+    background-color: #C05746;  
 }
 
 .status-withdrawn {
-    background: #6E7271;  
+    background-color: #6E7271;  
 }
 
 .status-nohope {
-    background: #474647;  
+    background-color: #474647;  
 }

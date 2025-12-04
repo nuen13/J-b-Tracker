@@ -41,6 +41,8 @@ namespace JobTrackerApp.Models
         public ApplicationStatus Status { get; set; } = ApplicationStatus.Submitted;
         public string LatestContactName { get; set; } = string.Empty;
 
+        public string AppliedLink {get; set;} = string.Empty;
+
     }
 }
 
